@@ -1,18 +1,28 @@
 package com.ibm.demo.entitiy;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
-import org.springframework.lang.NonNull;
+import org.springframework.data.annotation.Id;
+
 
 public class Order {
-	@NonNull
+	@NotNull
 	@NotBlank
 	private String item;
+	@NotNull
 	private float price;
-	private int id;
+	@Id
+	private String id;
 	public String getItem() {
 		return item;
 		
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	public void setItem(String item) {
 		this.item= item;
@@ -26,12 +36,7 @@ public class Order {
 		}
 		this.price = price;
 	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
+
 	
 
 }
