@@ -35,9 +35,9 @@ public class OrderService {//Spring Beans.
 		
 	}
 
-	public void deleteOrder(int  orderId) {
+	public void deleteOrder(String  orderId) {
 		// TODO Auto-generated method stub
-		System.out.println("order deleted");
+		orderRepository.deleteById(orderId);
 		
 	}
 
