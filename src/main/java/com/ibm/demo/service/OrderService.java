@@ -1,8 +1,8 @@
 package com.ibm.demo.service;
 
-import java.util.ArrayList;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,26 +19,28 @@ public class OrderService {//Spring Beans.
 		return savedOrder.getId();
 		
 	}
-
-	public Order getOrder(int orderId) {
+	public List<Order> getOrders() {
 		// TODO Auto-generated method stub
-		return new Order();
+		return orderRepository.findAll();
+	}
+
+	public Optional<Order> getOrder(String orderId) {
+		// TODO Auto-generated method stub
+		return orderRepository.findById(orderId);
 	}	
 	
-	public void updateOrder(int orderId) {
+	public void updateOrder(Order order) {
+		orderRepository.save(order);
 		// TODO Auto-generated method stub
 		
 	}
 
-	public void deleteOrder(int orderId) {
+	public void deleteOrder(int  orderId) {
 		// TODO Auto-generated method stub
 		System.out.println("order deleted");
 		
 	}
 
-	public List<Order> getOrders() {
-		// TODO Auto-generated method stub
-		return new ArrayList<Order>();
-	}
+	
 
 }

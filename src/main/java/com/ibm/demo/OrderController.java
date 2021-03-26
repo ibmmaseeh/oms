@@ -1,6 +1,7 @@
 package com.ibm.demo;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -41,6 +42,11 @@ public class OrderController {
 			}
 		
 	}
+	/**
+	 * *method to search for an order 
+	 * @param orderId
+	 * @return zero or matching order 
+	 */
 	
 	@GetMapping("/order")
 		List<Order> getOrders(){
@@ -48,19 +54,22 @@ public class OrderController {
 		}
 		
 	
-	@GetMapping("/order{id}")
-		Order getOrder(@PathVariable("id")int orderId) {
+	@GetMapping("/order/{id}")
+		Optional<Order> getOrder(@PathVariable("id")String orderId) {
 		return orderService.getOrder(orderId);	
 		}
-	@PutMapping("/order{id}")
-	void updateOrder(@RequestBody @Valid Order order, BindingResult bindingResult,@PathVariable("id") int orderId) {
+	
+	//DRY
+	@PutMapping("/order/{id}")
+	void updateOrder(@RequestBody @Valid Order order, BindingResult bindingResult,@PathVariable("id") String orderId) {
 		validateModel(bindingResult);
 		System.out.println(orderId);
-		orderService.updateOrder(orderId);
+		order.setId(orderId);
+		orderService.updateOrder(order);
 	}
-	@DeleteMapping("/order{id}")
-	void deleteOrder(@PathVariable("id")int orderId, HttpRequest httpRequest) {
-		System.out.println(httpRequest.getHeaders());
+	@DeleteMapping("/order/{id}")
+	void deleteOrder(@PathVariable("id")int orderId) {
+		
 		System.out.println(orderId);
 		orderService.deleteOrder(orderId);
 		
